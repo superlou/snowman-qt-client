@@ -8,6 +8,8 @@ MainBusButton {
   height: 60
   property alias label: label.text
   property int channel
+  signal clicked
+  signal shiftClicked
 
   Rectangle {
     id: rectangle
@@ -24,6 +26,12 @@ MainBusButton {
 
   MouseArea {
     anchors.fill: parent
-    onClicked: parent.setProgram(parent.channel)
+    onClicked: {
+      if (mouse.modifiers & Qt.ShiftModifier) {
+        container.shiftClicked()
+      } else {
+        container.clicked()
+      }
+    }
   }
 }

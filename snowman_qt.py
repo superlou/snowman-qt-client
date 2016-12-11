@@ -11,20 +11,23 @@ from PyQt5.QtQuick import QQuickItem, QQuickView
 class MainBusButton(QQuickItem):
     def __init__(self, parent=None):
         super().__init__(parent)
-        print(parent)
-
-    @pyqtSlot(int)
-    def setProgram(self, channel):
-        print(channel)
-        print(self.parent())
 
 
 class MainBus(QQuickItem):
     def __init__(self, parent=None):
         super().__init__(parent)
 
+    @pyqtSlot(int)
+    def setPreview(self, channel):
+        print("preview:", channel)
+
+    @pyqtSlot(int)
+    def setProgram(self, channel):
+        print("program:", channel)
+
 
 def main():
+    # os.environ["QML_IMPORT_TRACE"] = "1"
     app = QGuiApplication(argv)
 
     qmlRegisterType(MainBus, 'Snowman', 1, 0, 'MainBus')
