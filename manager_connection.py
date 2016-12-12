@@ -4,7 +4,7 @@ import json
 
 
 class ManagerConnection(object):
-    def __init__(self, server_port, publisher_port, callback=None):
+    def __init__(self, server_port, publisher_port):
         context = zmq.Context()
         address = "tcp://localhost"
 
@@ -14,16 +14,18 @@ class ManagerConnection(object):
         self.subscriber_socket = context.socket(zmq.SUB)
         self.subscriber_socket.connect('{}:{}'.format(address, publisher_port))
         self.subscriber_socket.setsockopt(zmq.SUBSCRIBE, b'main')
-        SubscriptionThread(self.subscriber_socket, callback).start()
 
     def send(self, json):
         self.client_socket.send_json(json)
         return self.client_socket.recv_json()
 
+    def subscribe(self, callback):
+        SubscriptionThread(self.subscriber_socket, callback).start()
+
 
 class SubscriptionThread(threading.Thread):
     def __init__(self, socket, callback):
-        threading.Thread.__init__(self)
+        threading.Thread.__init__(self, daemon=True)
         self.socket = socket
         self.callback = callback
 
@@ -33,11 +35,11 @@ class SubscriptionThread(threading.Thread):
         return obj
 
     def run(self):
-        print("in thread")
+        # print("in thread")
         keep_running = True
         while keep_running:
             message = self.subscribe_json()
-            print('subscriber:', message)
+            # print('subscriber:', message)
 
             if 'action' in message:
                 action = message['action']

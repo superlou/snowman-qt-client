@@ -8,6 +8,8 @@ MainBusButton {
   height: 60
   property alias label: label.text
   property int channel
+  property int programChannel
+  property int previewChannel
   signal clicked
   signal shiftClicked
 
@@ -23,6 +25,23 @@ MainBusButton {
     anchors.horizontalCenter: container.horizontalCenter
     anchors.verticalCenter: container.verticalCenter
   }
+
+  states: [
+    State {
+      name: 'DEFAULT'
+      PropertyChanges {target: rectangle; color: 'gray'}
+    },
+    State {
+      name: 'PROGRAM'
+      PropertyChanges {target: rectangle; color: 'red'}
+      when: (programChannel == container.channel)
+    },
+    State {
+      name: 'PREVIEW'
+      PropertyChanges {target: rectangle; color: 'green'}
+      when: (previewChannel == container.channel)
+    }
+  ]
 
   MouseArea {
     anchors.fill: parent

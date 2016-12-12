@@ -18,6 +18,8 @@ class MainBus(QQuickItem):
     def __init__(self, parent=None):
         super().__init__(parent)
         self._manager = None
+        self._previewChannel = None
+        self._programChannel = None
 
     @pyqtProperty(ManagerConnection)
     def manager(self):
@@ -26,6 +28,16 @@ class MainBus(QQuickItem):
     @manager.setter
     def manager(self, newManager):
         self._manager = newManager
+        self._manager.subscribe(self.onManagerUpdate)
+
+    @pyqtProperty(int)
+    def previewChannel(self):
+        return self._previewChannel
+
+    @previewChannel.setter
+    def previewChannel(self, channel):
+        if self._previewChannel != channel:
+            self._previewChannel = channel
 
     @pyqtSlot(int)
     def setPreview(self, channel):
@@ -35,18 +47,18 @@ class MainBus(QQuickItem):
     def setProgram(self, channel):
         self.manager.send({'action': 'set_program', 'feed': channel})
 
+    def onManagerUpdate(self, parameter, value):
+        if parameter == 'preview':
+            self.setProperty('previewChannel', value)
+        elif parameter == 'program':
+            self.setProperty('programChannel', value)
+        # elif parameter == 'active_dsks':
+        #     self.active_dsks = value
 
-def on_manager_update(self, type, value):
-    if type == 'preview':
-        self.preview_feed = value
-    elif type == 'program':
-        self.program_feed = value
-    elif type == 'active_dsks':
-        self.active_dsks = value
 
 def main():
     # os.environ["QML_IMPORT_TRACE"] = "1"
-    manager = ManagerConnection(5555, 5556, on_manager_update)
+    manager = ManagerConnection(5555, 5556)
     app = QGuiApplication(argv)
 
     qmlRegisterType(MainBus, 'Snowman', 1, 0, 'MainBus')

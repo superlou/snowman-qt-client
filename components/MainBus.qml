@@ -19,7 +19,13 @@ MainBus {
         label: index + 1
         onClicked: {container.setPreview(index)}
         onShiftClicked: {container.setProgram(index)}
+        previewChannel: container.previewChannel
+        programChannel: container.programChannel
       }
     }
+  }
+
+  Text {
+    text: parent.previewChannel
   }
 }
