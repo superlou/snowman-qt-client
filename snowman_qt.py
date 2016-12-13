@@ -9,9 +9,12 @@ from PyQt5.QtQuick import QQuickItem, QQuickView
 from manager_connection import ManagerConnection
 
 
+class MainBusTransitions(QQuickItem):
+    pass
+
+
 class MainBusButton(QQuickItem):
-    def __init__(self, parent=None):
-        super().__init__(parent)
+    pass
 
 
 class MainBus(QQuickItem):
@@ -47,6 +50,14 @@ class MainBus(QQuickItem):
     def setProgram(self, channel):
         self.manager.send({'action': 'set_program', 'feed': channel})
 
+    @pyqtSlot()
+    def take(self):
+        self.manager.send({'action': 'take'})
+
+    @pyqtSlot()
+    def transition(self):
+        self.manager.send({'action': 'transition'})
+
     def onManagerUpdate(self, parameter, value):
         if parameter == 'preview':
             self.setProperty('previewChannel', value)
@@ -63,6 +74,7 @@ def main():
 
     qmlRegisterType(MainBus, 'Snowman', 1, 0, 'MainBus')
     qmlRegisterType(MainBusButton, 'Snowman', 1, 0, 'MainBusButton')
+    qmlRegisterType(MainBusTransitions, 'Snowman', 1, 0, 'MainBusTransitions')
 
     view = QQuickView()
     view.setResizeMode(QQuickView.SizeRootObjectToView)
@@ -71,8 +83,6 @@ def main():
 
     mainBus = view.rootObject().findChild(QQuickItem, 'mainBus')
     mainBus.setProperty('manager', manager)
-    mainBus.setProperty('programChannel', 0)
-    mainBus.setProperty('previewChannel', 1)
 
     view.show()
 

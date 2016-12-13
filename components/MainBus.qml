@@ -9,7 +9,7 @@ MainBus {
   property int programChannel
   property int previewChannel
 
-  RowLayout{
+  RowLayout {
     anchors.fill: parent
 
     Repeater {
@@ -23,11 +23,21 @@ MainBus {
         programChannel: container.programChannel
       }
     }
+
+    MainBusTransitions {
+      onTransition: container.transition()
+      onTake: container.take()
+    }
   }
 
   focus: true
   Keys.onPressed: {
     var channel;
+
+    if (event.text == '\\') {
+      container.transition();
+      return;
+    }
 
     if (event.text == '') { return; }   // Ignore modifier keys
 
@@ -44,5 +54,9 @@ MainBus {
     if (programChannel > -1) {
       container.setProgram(programChannel);
     }
+  }
+
+  Keys.onReturnPressed: {
+    container.take()
   }
 }
