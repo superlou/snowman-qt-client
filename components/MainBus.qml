@@ -25,10 +25,6 @@ MainBus {
     }
   }
 
-  Text {
-    text: parent.previewChannel
-  }
-
   focus: true
   Keys.onPressed: {
     var channel;
