@@ -28,4 +28,25 @@ MainBus {
   Text {
     text: parent.previewChannel
   }
+
+  focus: true
+  Keys.onPressed: {
+    var channel;
+
+    if (event.text == '') { return; }   // Ignore modifier keys
+
+    var previewMap = '1234567890';
+    var programMap = '!@#$%^&*()';
+
+    var previewChannel = previewMap.indexOf(event.text);
+    var programChannel = programMap.indexOf(event.text);
+
+    if (previewChannel > -1) {
+      container.setPreview(previewChannel);
+    }
+
+    if (programChannel > -1) {
+      container.setProgram(programChannel);
+    }
+  }
 }
