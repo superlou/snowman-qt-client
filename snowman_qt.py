@@ -32,6 +32,7 @@ class MainBus(QQuickItem):
     def manager(self, newManager):
         self._manager = newManager
         self._manager.subscribe(self.onManagerUpdate)
+        self.manager.send({'action': 'sync'})
 
     @pyqtProperty(int)
     def previewChannel(self):
@@ -44,11 +45,11 @@ class MainBus(QQuickItem):
 
     @pyqtSlot(int)
     def setPreview(self, channel):
-        self.manager.send({'action': 'set_preview', 'feed': channel})
+        self.manager.send({'action': 'set_preview', 'feed': channel + 1})
 
     @pyqtSlot(int)
     def setProgram(self, channel):
-        self.manager.send({'action': 'set_program', 'feed': channel})
+        self.manager.send({'action': 'set_program', 'feed': channel + 1})
 
     @pyqtSlot()
     def take(self):
@@ -59,10 +60,13 @@ class MainBus(QQuickItem):
         self.manager.send({'action': 'transition'})
 
     def onManagerUpdate(self, parameter, value):
+        if value is None:
+            return
+            
         if parameter == 'preview':
-            self.setProperty('previewChannel', value)
+            self.setProperty('previewChannel', value - 1)
         elif parameter == 'program':
-            self.setProperty('programChannel', value)
+            self.setProperty('programChannel', value - 1)
         # elif parameter == 'active_dsks':
         #     self.active_dsks = value
 

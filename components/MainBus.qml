@@ -17,8 +17,8 @@ MainBus {
       MainBusButton {
         channel: index
         label: index + 1
-        onClicked: {container.setPreview(index)}
-        onShiftClicked: {container.setProgram(index)}
+        onClicked: {container.setPreview(channel)}
+        onShiftClicked: {container.setProgram(channel)}
         previewChannel: container.previewChannel
         programChannel: container.programChannel
       }
