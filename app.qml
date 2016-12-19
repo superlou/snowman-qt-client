@@ -1,7 +1,7 @@
 import QtQuick 2.5
 import QtQuick.Controls 1.4
 import Snowman 1.0
-import "components"
+import "qml"
 
 Item {
   id: app
