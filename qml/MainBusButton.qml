@@ -8,8 +8,8 @@ MainBusButton {
   height: 60
   property alias label: label.text
   property int channel
-  property int programChannel
-  property int previewChannel
+  property bool isProgram
+  property bool isPreview
   signal clicked
   signal shiftClicked
 
@@ -34,12 +34,12 @@ MainBusButton {
     State {
       name: 'PROGRAM'
       PropertyChanges {target: rectangle; color: 'red'}
-      when: (programChannel == container.channel)
+      when: isProgram
     },
     State {
       name: 'PREVIEW'
       PropertyChanges {target: rectangle; color: 'green'}
-      when: (previewChannel == container.channel)
+      when: isPreview
     }
   ]
 

@@ -19,8 +19,8 @@ MainBus {
         label: index + 1
         onClicked: {container.setPreview(channel)}
         onShiftClicked: {container.setProgram(channel)}
-        previewChannel: container.previewChannel
-        programChannel: container.programChannel
+        isPreview: {index == container.previewChannel}
+        isProgram: {index == container.programChannel}
       }
     }
 
