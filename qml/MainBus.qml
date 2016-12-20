@@ -21,6 +21,7 @@ MainBus {
         onShiftClicked: {container.setProgram(channel)}
         isPreview: {index == container.previewChannel}
         isProgram: {index == container.programChannel}
+        isDisabled: {index > 5}
       }
     }
 
