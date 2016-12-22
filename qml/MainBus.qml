@@ -35,27 +35,22 @@ MainBus {
 
   focus: true
   Keys.onPressed: {
-    var channel;
-
     if (event.text == '\\') {
       container.transition();
       return;
     }
 
-    if (event.text == '') { return; }   // Ignore modifier keys
+    var key = event.key;
+    var shiftHeld = event.modifiers & Qt.ShiftModifier;
 
-    var previewMap = '1234567890';
-    var programMap = '!@#$%^&*()';
+    if (key >= Qt.Key_F1 && key <= Qt.Key_F12) {
+      var channel = key - Qt.Key_F1;
 
-    var previewChannel = previewMap.indexOf(event.text);
-    var programChannel = programMap.indexOf(event.text);
-
-    if (previewChannel > -1) {
-      container.setPreview(previewChannel);
-    }
-
-    if (programChannel > -1) {
-      container.setProgram(programChannel);
+      if (shiftHeld) {
+        container.setProgram(channel);
+      } else {
+        container.setPreview(channel);
+      }
     }
   }
 
