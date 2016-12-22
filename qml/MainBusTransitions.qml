@@ -4,51 +4,25 @@ import Snowman 1.0
 import "."
 
 
-MainBusTransitions {
+Row {
   id: container
-  anchors.fill: parent
   signal take
   signal transition
 
+  spacing: 10
 
-  RowLayout {
-    Rectangle {
-      id: takeButton
-      width: 60
-      height: 60
-      color: 'gray'
-      border.color: 'black'
-
-      Text {
-        text: 'Take'
-        anchors.horizontalCenter: parent.horizontalCenter
-        anchors.verticalCenter: parent.verticalCenter
-      }
-
-      MouseArea {
-        anchors.fill: parent
-        onClicked: container.take()
-      }
+  Column {
+    spacing: 4
+    Button {
+      text: 'Take'
+      height: 28
+      onClicked: container.take()
     }
 
-    Rectangle {
-      id: transitionButton
-      width: 100
-      height: 60
-      color: 'gray'
-      border.color: 'black'
-
-      Text {
-        text: 'Transition'
-        anchors.horizontalCenter: parent.horizontalCenter
-        anchors.verticalCenter: parent.verticalCenter
-      }
-
-      MouseArea {
-        anchors.fill: parent
-        onClicked: container.transition()
-      }
+    Button {
+      text: 'Auto'
+      height: 28
+      onClicked: container.transition()
     }
   }
-
 }

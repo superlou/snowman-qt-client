@@ -5,7 +5,7 @@ import "qml"
 
 Item {
   id: app
-  width: 600
+  width: 800
   height: 400
 
   property int mainBusChannelCount: 8

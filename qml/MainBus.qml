@@ -9,8 +9,10 @@ MainBus {
   property int programChannel
   property int previewChannel
 
-  RowLayout {
+  Row {
     anchors.fill: parent
+    anchors.verticalCenter: parent.verticalCenter
+    spacing: 10
 
     Repeater {
       model: container.count
