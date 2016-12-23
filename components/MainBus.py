@@ -4,11 +4,14 @@ from manager_connection import ManagerConnection
 
 
 class MainBus(QQuickItem):
+    # previewChannelChanged = pyqtSignal()
+    # programChannelChanged = pyqtSignal()
+
     def __init__(self, parent=None):
         super().__init__(parent)
         self._manager = None
-        self._previewChannel = None
-        self._programChannel = None
+        self._previewChannel = 0
+        self._programChannel = 0
 
     @pyqtProperty(ManagerConnection)
     def manager(self):
@@ -28,6 +31,15 @@ class MainBus(QQuickItem):
     def previewChannel(self, channel):
         if self._previewChannel != channel:
             self._previewChannel = channel
+
+    @pyqtProperty(int)
+    def programChannel(self):
+        return self._programChannel
+
+    @programChannel.setter
+    def programChannel(self, channel):
+        if self._programChannel != channel:
+            self._programChannel = channel
 
     @pyqtSlot(int)
     def setPreview(self, channel):
@@ -53,5 +65,3 @@ class MainBus(QQuickItem):
             self.setProperty('previewChannel', value - 1)
         elif parameter == 'program':
             self.setProperty('programChannel', value - 1)
-        # elif parameter == 'active_dsks':
-        #     self.active_dsks = value

@@ -22,7 +22,7 @@ class DSKs(QQuickItem):
 
     @pyqtProperty(list)
     def activeDsks(self):
-        return self.activeDsks
+        return self._activeDsks
 
     @activeDsks.setter
     def setter(self, newActiveDsks):

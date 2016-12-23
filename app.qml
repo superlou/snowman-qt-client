@@ -1,11 +1,12 @@
 import QtQuick 2.5
 import QtQuick.Controls 1.4
+import QtQuick.Layouts 1.2
 import Snowman 1.0
 import "qml"
 
 Item {
   id: app
-  width: 800
+  width: 1200
   height: 400
 
   property int mainBusChannelCount: 8
@@ -16,22 +17,29 @@ Item {
     color: '#222'
   }
 
-  MainBus {
-    id: 'mainBus'
-    objectName: 'mainBus'
-    count: app.mainBusChannelCount
-  }
-  DSKs {
-    id: 'dsks'
-    objectName: 'dsks'
-    y: 100
-  }
+  Row {
+    spacing: 10
 
+    MainBusView {
+      id: 'mainBusView'
+      model: MainBus {
+        objectName: 'mainBus'
+      }
+      count: app.mainBusChannelCount
+    }
+
+    DsksView {
+      id: 'dsksView'
+      model: DSKs {
+        objectName: 'dsks'
+      }
+    }
+  }
 
   focus: true
   Keys.onPressed: {
     if (event.text == '\\') {
-      mainBus.transition();
+      mainBusView.model.transition();
       return;
     }
 
@@ -42,19 +50,19 @@ Item {
       var channel = key - Qt.Key_F1;
 
       if (shiftHeld) {
-        mainBus.setProgram(channel);
+        mainBusView.model.setProgram(channel);
       } else {
-        mainBus.setPreview(channel);
+        mainBusView.model.setPreview(channel);
       }
     }
 
     if (key >= Qt.Key_F9 && key <= Qt.Key_F12) {
       var channel = key - Qt.Key_F9;
-      dsks.toggleDsk(channel)
+      dsksView.model.toggleDsk(channel)
     }
   }
 
   Keys.onReturnPressed: {
-    mainBus.take()
+    mainBusView.model.take()
   }
 }
