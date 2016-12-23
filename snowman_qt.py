@@ -8,16 +8,17 @@ from PyQt5.QtQml import qmlRegisterType
 from PyQt5.QtQuick import QQuickItem, QQuickView
 from manager_connection import ManagerConnection
 from components.MainBus import MainBus
+from components.DSKs import DSKs
 from qml_tools import *
 
 
 def main():
     # os.environ["QML_IMPORT_TRACE"] = "1"
-    manager = ManagerConnection(5555, 5556)
     app = QGuiApplication(argv)
 
     dynamic_register(['MainBusButton', 'MainBusTransitions'])
     qmlRegisterType(MainBus, 'Snowman', 1, 0, 'MainBus')
+    qmlRegisterType(DSKs, 'Snowman', 1, 0, 'DSKs')
 
     view = QQuickView()
     view.setResizeMode(QQuickView.SizeRootObjectToView)
@@ -25,7 +26,10 @@ def main():
     view.setSource(QUrl.fromLocalFile(sourceFile))
 
     mainBus = view.rootObject().findChild(QQuickItem, 'mainBus')
-    mainBus.setProperty('manager', manager)
+    mainBus.setProperty('manager', ManagerConnection(5555, 5556))
+
+    dsks = view.rootObject().findChild(QQuickItem, 'dsks')
+    dsks.setProperty('manager', ManagerConnection(5555, 5556))
 
     view.show()
 

@@ -10,8 +10,8 @@ MainBus {
   property int previewChannel
 
   Row {
-    anchors.fill: parent
-    anchors.verticalCenter: parent.verticalCenter
+    // anchors.fill: parent
+    // anchors.verticalCenter: parent.verticalCenter
     spacing: 10
 
     Repeater {
@@ -31,30 +31,5 @@ MainBus {
       onTransition: container.transition()
       onTake: container.take()
     }
-  }
-
-  focus: true
-  Keys.onPressed: {
-    if (event.text == '\\') {
-      container.transition();
-      return;
-    }
-
-    var key = event.key;
-    var shiftHeld = event.modifiers & Qt.ShiftModifier;
-
-    if (key >= Qt.Key_F1 && key <= Qt.Key_F12) {
-      var channel = key - Qt.Key_F1;
-
-      if (shiftHeld) {
-        container.setProgram(channel);
-      } else {
-        container.setPreview(channel);
-      }
-    }
-  }
-
-  Keys.onReturnPressed: {
-    container.take()
   }
 }
