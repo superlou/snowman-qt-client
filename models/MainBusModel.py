@@ -9,6 +9,7 @@ class MainBusModel(QQuickItem):
         self._manager = None
         self._previewChannel = 0
         self._programChannel = 0
+        self._feedsCount = 0
 
     @pyqtProperty(ManagerConnection)
     def manager(self):
@@ -19,6 +20,14 @@ class MainBusModel(QQuickItem):
         self._manager = newManager
         self._manager.subscribe(self.onManagerUpdate)
         self.manager.send({'action': 'sync'})
+
+    @pyqtProperty(int)
+    def feedsCount(self):
+        return self._feedsCount
+
+    @feedsCount.setter
+    def feedsCount(self, newCount):
+        self._feedsCount = newCount
 
     @pyqtProperty(int)
     def previewChannel(self):
@@ -62,3 +71,5 @@ class MainBusModel(QQuickItem):
             self.setProperty('previewChannel', value - 1)
         elif parameter == 'program':
             self.setProperty('programChannel', value - 1)
+        elif parameter == 'feeds_count':
+            self.setProperty('feedsCount', value)

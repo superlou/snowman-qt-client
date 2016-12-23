@@ -5,7 +5,6 @@ import "."
 
 Row {
   id: container
-  property int count
   property MainBusModel model
 
   spacing: 10
@@ -16,7 +15,7 @@ Row {
   }
 
   Repeater {
-    model: container.count
+    model: container.model.feedsCount
     MainBusButton {
       channel: index
       label: index + 1

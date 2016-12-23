@@ -26,7 +26,6 @@ Item {
       model: MainBusModel {
         objectName: 'mainBusModel'
       }
-      count: app.mainBusChannelCount
     }
 
     Dsks {

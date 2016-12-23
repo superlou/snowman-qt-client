@@ -6,4 +6,5 @@ import "."
 MainBusModel {
   property int previewChannel
   property int programChannel
+  property int feedsCount
 }
