@@ -4,9 +4,6 @@ from manager_connection import ManagerConnection
 
 
 class MainBusModel(QQuickItem):
-    # previewChannelChanged = pyqtSignal()
-    # programChannelChanged = pyqtSignal()
-
     def __init__(self, parent=None):
         super().__init__(parent)
         self._manager = None
