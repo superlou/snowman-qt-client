@@ -3,7 +3,7 @@ from PyQt5.QtCore import pyqtProperty, pyqtSignal, pyqtSlot
 from manager_connection import ManagerConnection
 
 
-class MainBus(QQuickItem):
+class MainBusModel(QQuickItem):
     # previewChannelChanged = pyqtSignal()
     # programChannelChanged = pyqtSignal()
 

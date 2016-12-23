@@ -5,7 +5,7 @@ import "."
 
 Row {
   id: container
-  property DSKs model
+  property DsksModel model
 
   spacing: 10
 

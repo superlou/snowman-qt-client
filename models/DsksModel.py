@@ -4,7 +4,7 @@ from PyQt5.QtQml import QQmlListProperty
 from manager_connection import ManagerConnection
 
 
-class DSKs(QQuickItem):
+class DsksModel(QQuickItem):
     def __init__(self, parent=None):
         super().__init__(parent)
         self._manager = None

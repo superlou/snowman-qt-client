@@ -3,6 +3,7 @@ import QtQuick.Layouts 1.2
 import Snowman 1.0
 import "."
 
-DSKs {
-  property var activeDsks: []
+MainBusModel {
+  property int previewChannel
+  property int programChannel
 }

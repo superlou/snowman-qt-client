@@ -2,7 +2,7 @@ import QtQuick 2.5
 import Snowman 1.0
 import "."
 
-MainBusButton {
+Item {
   id: container
   width: 60
   height: 60
